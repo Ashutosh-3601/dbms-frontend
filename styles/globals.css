@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .text-shadow-violet {
+        text-shadow: 0 0 8px rgb(91 33 182);
+    }
+    .text-shadow-gray {
+        text-shadow: 0 0 8px rgb(75 85 99);
+    }
+    .text-shadow-white {
+        text-shadow: 0 0 8px #fffff;
+    }
+    .text-shadow-none {
+        text-shadow: none;
+    }
+}
