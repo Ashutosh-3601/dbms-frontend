@@ -4,15 +4,35 @@
 
 @layer utilities {
     .text-shadow-violet {
-        text-shadow: 0 0 8px rgb(91 33 182);
+        text-shadow: 0 0 10px rgb(91 33 182);
     }
     .text-shadow-gray {
         text-shadow: 0 0 8px rgb(75 85 99);
     }
     .text-shadow-white {
-        text-shadow: 0 0 8px #fffff;
+        text-shadow: 0 0 8px #ffffff;
     }
     .text-shadow-none {
         text-shadow: none;
+    }
+    /* width */
+    ::-webkit-scrollbar {
+    width: 5px;
+    }
+  
+  /* Track */
+    ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(91 33 182); 
+    }
+   
+  /* Handle */
+    ::-webkit-scrollbar-thumb {
+    background: rgb(124 58 237); 
+    border-radius: 10px;
+    }
+  
+  /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+    background: rgb(109 40 217); 
     }
 }

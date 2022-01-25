@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import Loading from '../components/Loading';
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -17,12 +18,19 @@ function MyApp({ Component, pageProps }: AppProps) {
         router.events.on('routeChangeError', handleComplete);
       }, [router]);
     return (
+        <>
+        <Head>
+            <title>Question Paper Generator</title>
+            <link rel="shortcut icon" href={'/public/logofavicon/favicon.ico'} />
+            <meta property='og:title' content='Question Paper Genrator for BMSIT'/>
+        </Head>
         <Layout>
             { pageLoading 
             ? (<><Loading /><Loading /><Loading /></>)
             : <Component {...pageProps} />
             }
         </Layout>
+        </>
     );
 }
 

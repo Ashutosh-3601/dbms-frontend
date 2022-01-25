@@ -28,8 +28,8 @@ const NavLinks = ({ nav } : INavLink) => {
 
 const Navigator = ({ username, navigation } : NavProps) => {
     return (
-        <div className="flex flex-row flex-wrap m-4 px-2">
-                <div className="flex flex-row flex-wrap justify-start items-start w-full md:w-1/2 px-2">
+        <div className="flex flex-row flex-nowrap mt-4 px-2">
+                <div className="flex flex-row flex-wrap justify-start items-start w-full md:w-1/2 px-2 md:top-20 md:absolute">
                     <p className="font-mono items-start text-left text-2xl text-white mx-2">
                         Hello,
                         <span className="text-violet-600 mx-1 text-shadow-violet">
@@ -37,7 +37,7 @@ const Navigator = ({ username, navigation } : NavProps) => {
                         </span>
                     </p>
                 </div>
-                <div className="flex flex-wrap justify-end w-full md:w-1/2 items-center px-2">
+                <div className="flex flex-wrap justify-end w-full md:w-1/2 items-center px-2 md:top-20 md:right-1 md:absolute">
                     {navigation.map((nav, idx) => <NavLinks nav={nav} key={idx} />)} 
                 </div>
             </div>
