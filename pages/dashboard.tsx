@@ -10,7 +10,7 @@ import {
 } from 'react-icons/md';
 import { MouseEvent } from 'react';
 import { LoginChecker } from '../lib/LoginChecker';
-import { IDashboardProps, Instructor, Subjects } from '../lib/types';
+import { IDashboardProps, Instructor, Stats, Subjects } from '../lib/types';
 import { SubjectMapper } from '../lib/SubjectMapper';
 import { NavGen } from '../lib/NavGen';
 
@@ -110,8 +110,16 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
             destination: '/admin'
         }
     }
-    const stats = await fetch(`http://localhost:3001/instructors/stats/${instructor.id}`).then(r => r.json());
-    let props = {
+    let stats: Stats = {
+        sub1TotalQuestion: 0,
+        sub2TotalQuestion: 0,
+        sub1LastAddition: 0,
+        sub2LastAddition: 0,
+    };
+    const statsRes = await fetch(`http://localhost:3001/instructors/stats/${instructor.id}`).catch(err => {
+        return {}});
+    if('ok' in statsRes && statsRes.ok) stats = await statsRes.json();
+    let props: IDashboardProps = {
         name: `${instructor.fname} ${instructor.lname ?? ''}`,
         sub1: instructor.sub1,
         sub1Short: SubjectMapper.getShortNameSubject(instructor.sub1 as Subjects),

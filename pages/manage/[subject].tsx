@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, MouseEvent, useState } from 'react';
-import { FaPencilAlt, FaSearch } from 'react-icons/fa';
+import { FaMinusCircle, FaPencilAlt, FaSearch } from 'react-icons/fa';
 import { MdOutlineAddCircle } from 'react-icons/md';
 import Navigator from '../../components/Navigator';
 import QuestionInput from '../../components/QuestionForm/QuestionInput';
@@ -15,6 +15,7 @@ import Previewer from '../../components/Previewer';
 import { SubjectMapper } from '../../lib/SubjectMapper';
 import { LoginChecker } from '../../lib/LoginChecker';
 import { getQuestionByID } from '../../lib/QuestionCache';
+import { toast } from 'react-toastify';
 
 const SubjectManagement = ({ path, instructor, context } : IQuestionEditingProps) => {4
     const router = useRouter();
@@ -36,6 +37,17 @@ const SubjectManagement = ({ path, instructor, context } : IQuestionEditingProps
             [event.currentTarget.name]: [event.currentTarget.value],
         })
     }
+
+    const questionDelete = async (event: MouseEvent<HTMLButtonElement>) => {
+        // @ts-ignore
+        const question_id = event.currentTarget.value;
+        const req = await fetch(`http://localhost:3000/api/delete-question?question_id=${question_id}`);
+        const res = await req.json();
+        if(!res.error) {
+            router.back();
+        }
+        else toast.error("Error removing that question", { theme: 'dark' });
+    }
     return (
         <>
         <Navigator navigation={NavGen(router.asPath, {pathName: path.code, pathLoc: path.code})} username={`${instructor.fname} ${instructor.lname}`} />
@@ -54,15 +66,25 @@ const SubjectManagement = ({ path, instructor, context } : IQuestionEditingProps
                             <QuestionModule init={formState.question_module} handler={onChangeHandler}/>
                             <QuestionTopic moduleSelected={Number(...formState.question_module)} init={formState.question_topic} handler={onChangeHandler}/>
                             <QuestionInput init={formState.question} handler={onChangeHandler}/>
-                            <div className="flex items-center justify-end">
+                            <div className="flex items-center justify-evenly">
                         <button
-                            className="font-mono bg-inherit hover:bg-violet-700 text-violet-600 hover:text-slate-50 font-bold py-2 px-4 mx-auto my-2 border border-violet-600 rounded-full focus:outline-none focus:shadow-outline"
+                            className="font-mono bg-inherit hover:bg-violet-700 text-violet-600 hover:text-slate-50 font-bold py-2 px-4 my-2 border border-violet-600 rounded-full focus:outline-none focus:shadow-outline"
                             type="submit">
                             <div className="flex justify-start">
                                 <MdOutlineAddCircle size={21} />
                                 <span className="mx-2">{IsEditing}</span>
                             </div>
                         </button>
+                        {IsEditing === "Edit" ? 
+                        <button
+                        className="font-mono bg-inherit hover:bg-red-700 text-red-600 hover:text-slate-50 font-bold py-2 px-4 my-2 border border-red-600 rounded-full focus:outline-none focus:shadow-outline"
+                        type="button" onClick={questionDelete} value={formState.question_id as string}>
+                        <div className="flex justify-start">
+                            <FaMinusCircle size={21} />
+                            <span className="mx-2">Delete</span>
+                        </div>
+                        </button>
+                    : <></>}
                     </div>
                         </form>
                     </div>

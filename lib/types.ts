@@ -47,7 +47,8 @@ export interface IQuestionTableProp {
 export interface IQuestionViewer {
     open: boolean,
     handler: Dispatch<SetStateAction<boolean>>,
-    context: BaseQuestion
+    context: BaseQuestion,
+    instructor: Instructor;
 }
 
 export interface IQuestionEditingProps {

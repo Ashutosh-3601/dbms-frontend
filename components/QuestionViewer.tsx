@@ -6,7 +6,7 @@ import { IQuestionViewer } from '../lib/types';
 import { useRouter } from 'next/router';
 
 
-const QuestionViewer = ({ open, handler, context }: IQuestionViewer) => {
+const QuestionViewer = ({ open, handler, context, instructor }: IQuestionViewer) => {
   const router = useRouter()
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -63,8 +63,9 @@ const QuestionViewer = ({ open, handler, context }: IQuestionViewer) => {
                         <span className=" mx-1 md:mx-2">Cancel</span>
                     </div>
                 </button>
+              {(instructor.id == context.author?.id ? 
               <button
-                    className="inline-flex font-mono justify-center bg-inherit hover:bg-violet-700 text-violet-600 hover:text-slate-50 font-bold mx-auto my-2 py-2 px-4 border border-violet-600 rounded-full focus:outline-none focus:shadow-outline"
+                    className={(instructor.id == context.author?.id ? 'inline-flex' : 'hidden') + " font-mono justify-center bg-inherit hover:bg-violet-700 text-violet-600 hover:text-slate-50 font-bold mx-auto my-2 py-2 px-4 border border-violet-600 rounded-full focus:outline-none focus:shadow-outline"}
                     type="button"
                     onClick={() => router.push({
                       pathname: `/manage/${context.code}`,
@@ -75,6 +76,7 @@ const QuestionViewer = ({ open, handler, context }: IQuestionViewer) => {
                         <span className=" mx-1 md:mx-2">Edit</span>
                     </div>
                 </button>
+                : <></>)}
                 </div>
                 <div className='flex basis-1/2 items-center'>
                 <p className="font-mono text-base text-violet-600">

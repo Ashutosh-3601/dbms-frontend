@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import { MdPerson, MdPersonAddAlt1 } from "react-icons/md";
 import AddInstructorForm from "../components/AddInstructorForm";
+import UserEmail from "../components/UserForm/UserEmail";
 import { LoginChecker } from "../lib/LoginChecker";
 
 const Admin = () => {
@@ -22,9 +23,12 @@ const Admin = () => {
                         <MdPerson size={35} />
                         <span className="mx-2">Modify Instructor</span>
                     </h3>
-                    <h3 className="flex justify-center font-mono text-center text-3xl text-slate-100 mt-4 mx-2 my-auto">
-                        <span className="mx-2">Coming Soon</span>
-                    </h3>
+                    <div className="w-full max-w-lg my-3" onClick={() => alert('Oops :p not implemented')}>
+                        <UserEmail init={''} handler={() => ''} />
+                        <p className="block text-lg text-violet-600 text-center italic my-0.5 mx-2 text-shadow-violet">
+                        Enter instructor email to change their data
+                        </p>
+                    </div>
                 </div>
             </div>
         </>

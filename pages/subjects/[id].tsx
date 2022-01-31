@@ -27,7 +27,7 @@ const Subject = ({ path, questions, instructor } : ISubjectQuestion) => {
     }
     return (
         <>
-        <QuestionViewer open={openQuestion} handler={setOpenQue} context={curQues as BaseQuestion}/>
+        <QuestionViewer open={openQuestion} handler={setOpenQue} context={curQues as BaseQuestion} instructor={instructor}/>
             <Navigator navigation={NavGen(router.asPath, {pathName: path.code, pathLoc: path.code })} username={`${instructor.fname} ${instructor.lname}`} />
             <h1
                 className={
